@@ -1050,34 +1050,8 @@ OrderBook<OrderPtr>::callback_now()
       Callbacks working;
       working.reserve(callbacks_.capacity());
       working.swap(callbacks_);
-      for (auto cb = working.begin(); cb != working.end(); ++cb) {
-        try
-        {
+      for (auto cb = working.begin(); cb != working.end(); ++cb) 
           perform_callback(*cb);
-        }
-        catch(const std::exception & ex)
-        {
-          if(logger_)
-          {
-            logger_->log_exception("Caught exception during callback: ", ex);
-          }
-          else
-          {
-            std::cerr << "Caught exception during callback: " << ex.what() << std::endl;
-          }
-        }
-        catch(...)
-        {
-          if(logger_)
-          {
-            logger_->log_message("Caught unknown exception during callback");
-          }
-          else
-          {
-            std::cerr << "Caught unknown exception during callback" << std::endl;
-          }
-        }
-      }
     }
     handling_callbacks_ = false;
   }
