@@ -22,7 +22,7 @@ public:
 
   virtual double highest_trade() const = 0;
   virtual double lowest_trade() const = 0;
-  virtual double total_traded_volume() const = 0;
+  virtual Quantity total_traded_volume() const = 0;
   virtual ~TradeListener() = default;
 };
 
