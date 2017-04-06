@@ -613,20 +613,11 @@ OrderBook<OrderPtr>::find_on_market(
 {
   const ComparablePrice key(order->is_buy(), order->price());
   TrackerMap & sideMap = order->is_buy() ? bids_ : asks_;
-
-  for (result = sideMap.find(key); result != sideMap.end(); ++result) {
-    // If this is the correct bid
-    if (result->second.ptr() == order) 
-    {
-      return true;
-    } 
-    else if (key < result->first) 
-    {
-      // exit early if result is beyond the matching prices
-      result = sideMap.end();
-      return false;
-    }
+  auto range = sideMap.equal_range(key);
+  for(result = range.first; result != range.second; ++result) {
+    if(result->second.ptr() == order) return true;
   }
+  result = sideMap.end();
   return false;
 }
 
