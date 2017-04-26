@@ -478,7 +478,7 @@ OrderBook<OrderPtr>::replace(
   Price new_price)
 {
   bool matched = false;
-  bool price_change = new_price && (new_price != order->price());
+  //bool price_change = new_price && (new_price != order->price());
 
   Price price = (new_price == PRICE_UNCHANGED) ? order->price() : new_price;
 
